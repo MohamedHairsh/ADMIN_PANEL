@@ -23,7 +23,6 @@
             overflow-x: hidden;
         }
 
-        /*
             .submenu {
             display: none;
             flex-direction: column;
@@ -34,17 +33,16 @@
             display: flex;
         }
 
-        .submenu .nav-link.small-link {
-            font-size: 0.975rem;
+        .submenu .nav-link {
+            font-size: 1.0rem;
             padding: 0.2rem 0;
             color: rgba(255, 255, 255, 0.8);
         }
 
-        .submenu .nav-link.small-link:hover {
+        .submenu .nav-link:hover {
             color: white;
             text-decoration: none;
-        }
-*/
+        } 
        /* Sidebar Styles */
         .sidebar {
             position: fixed;
@@ -190,7 +188,7 @@
         /* main content */
        .stats-card {
             background: white;
-            border-radius: 15px;
+            border-radius: 12px;
             padding: 25px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.08);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -208,18 +206,18 @@
         .stats-card.revenue { border-left-color: var(--accent-color); }
 
         .stats-card h3 {
-            font-size: 2.5rem;
+            font-size: 2rem;
             font-weight: 700;
             margin-bottom: 10px;
         }
 
         .stats-card p {
             color: #7f8c8d;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
 
         .stats-card i {
-            font-size: 3rem;
+            font-size: 2.5rem;
             opacity: 0.3;
             float: right;
             margin-top: -20px;
@@ -304,7 +302,6 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             border: none;
             border-radius: 0.5rem;
             padding: 0.75rem 1.5rem;
@@ -314,7 +311,7 @@
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.3);
+            
         }
 
         .btn-outline-primary {

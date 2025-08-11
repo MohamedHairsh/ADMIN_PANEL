@@ -10,67 +10,122 @@
     <link href="Assests/css/HotelAdmin.css" rel="stylesheet">
 </head>
 <body> 
-   <!-- Sidebar -->
-    <div class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <h5><i class="fas fa-hotel"></i> Hotel Management</h5>
-        </div>
-        <nav class="sidebar-nav">
-         <div class="nav-item">
-            <a href="HotelAdmin.html" class="nav-link">
-                <i class="fas fa-tachometer-alt"></i>
-                <span>Dashboard</span>
-            </a>
+  <style>
+      .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #6c757d;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.5;
+        }
+           /* Room Form Section */
+        .amenities-form-section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #e2e8f0;
+        }
+
+        .form-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .form-header h4 {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
+        }
+  </style>
+     <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h5><i class="fas fa-hotel"></i> Hotel Management</h5>
+            </div>
+            <nav class="sidebar-nav">
+            <div class="nav-item">
+                <a href="HotelAdmin.html" class="nav-link">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                </div>
+
+                <div class="nav-item">
+                    <a href="BookingAdmin.html" class="nav-link">
+                        <i class="fas fa-calendar-check"></i>
+                    <span>Bookings</span>
+                    </a>
+                </div>
+                 <div class="nav-item">
+               
             </div>
 
-            <div class="nav-item">
-                <a href="BookingAdmin.html" class="nav-link">
-                    <i class="fas fa-calendar-check"></i>
-                   <span>Bookings</span>
-                </a>
-            </div>
-              <div class="nav-item">
-                <a href="Room.html" class="nav-link">
+
+           <div class="nav-item">
+                <a href="#" class="nav-link toggle-submenu">
                     <i class="fas fa-bed"></i>
+                  <span>Master</span>
+                </a>
+
+            <div class="submenu">
+                <a href="Amenities.html" class="nav-link"><i class="fa-solid fa-spa"></i><span>Amenities</span></a>
+                 <a href="Room.html" class="nav-link">
+                   <i class="fa-solid fa-hotel"></i>
                   <span>Room</span>
                 </a>
-            </div>
-           <div class="nav-item">
-                <a href="MasterRooms.html" class="nav-link">
+                 <a href="MasterRooms.html" class="nav-link">
                     <i class="fas fa-bed"></i>
                   <span>Master Room</span>
                 </a>
+                
             </div>
-            
-            <div class="nav-item">
+            </div>
+                    
+                <!--  <div class="nav-item">
                 <a href="Guests.html" class="nav-link">
                     <i class="fas fa-users"></i>
                    <span>Guests</span>
                 </a>
-            </div>
-       
-            <div class="nav-item">
-                <a href="Staff.html" class="nav-link">
-                    <i class="fas fa-user-tie"></i>
-                   <span>Staff</span>
-                </a>
-            </div>
-
-              <div class="nav-item">
+            </div>-->
+        
+                <div class="nav-item">
+                    <a href="Staff.html" class="nav-link">
+                        <i class="fas fa-user-tie"></i>
+                    <span>Staff</span>
+                    </a>
+                </div>
+                 <div class="nav-item">
                 <a href="Rating.html" class="nav-link">
                    <i class="fa-solid fa-star"></i>
                    <span>Rating and Review</span>
                 </a>
             </div>
-            
-            <div class="nav-item">
-                <a href="Profile.html" class="nav-link">
-                    <i class="fas fa-cog"></i>
-                  <span>Settings</span>
-                </a>
-            </div>
-        </nav>
-    </div>
+                <div class="nav-item">
+                    <a href="Profile.html" class="nav-link">
+                        <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
    <!-- Main Content -->
     <div class="main-content">
   <!-- Top Navbar -->
@@ -103,21 +158,7 @@
         </nav>
      <!-- Content Area -->       
     <div class="content-area">
-  <!-- Amenities Section -->
-<section class="content-section">
-  <!-- Header -->
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <div>
-      <h2>Amenities Management</h2>
-    </div>
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newAmenityModal">
-      <i class="fas fa-plus"></i> New Amenity
-    </button>
-  </div>
-
-  <!-- Amenities Grid -->
-  <div class="row">
-      <div class="row mb-4">
+        <div class="row mb-4" id="Amenities">
                     <div class="col-lg-3 col-md-6 mb-3">
                         <div class="stats-card"> 
                           <i class="fas fa-swimming-pool"></i>
@@ -149,8 +190,81 @@
                             <p>Usage Rate</p>
                         </div>
                     </div>
-                </div>
+                </div> 
+  <!-- Amenities Section -->
+<section class="content-section">
+  <!-- Header -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+    </div>
+      <div class="col-md-3 d-flex justify-content-end">
+                        <button class="btn add-room-btn" onclick="showAmenityForm()">
+                    <i class="fas fa-plus me-2"></i>Add New Amenity
+                </button>
+            </div>
+
+  </div>
+   <!-- Add/Edit Amenities Form Section -->
+  <div class="amenities-form-section" id="AmenitiesFormSection" style="display: none;">
+  <form id="amenitiesForm">
+    <div class="row g-3">
+      <div class="col-md-4">
+        <label class="form-label">Amenities Icon <span class="text-danger">*</span></label>
+        <input type="text" class="form-control" id="icon" placeholder="e.g., fa-water-ladder" required>
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Amenities Name <span class="text-danger">*</span></label>
+        <input type="text" class="form-control" id="name" placeholder="e.g., Swimming Pool" required>
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Description <span class="text-danger">*</span></label>
+        <input type="text" class="form-control" id="description" placeholder="Enter description" required>
+      </div>
+    </div>
+    <div class="row g-3 mt-2">
+      <div class="col-md-4">
+        <label class="form-label">Opening Time <span class="text-danger">*</span></label>
+        <input type="time" class="form-control" id="opening" required>
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Closing Time <span class="text-danger">*</span></label>
+        <input type="time" class="form-control" id="closing" required>
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Status <span class="text-danger">*</span></label>
+        <select class="form-control" id="status" required>
+          <option value="">Select Status</option>
+          <option value="active">Active</option>
+          <option value="maintenance">Maintenance</option>
+          <option value="disabled">Temporarily Disabled</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-actions mt-4">
+      <button type="button" class="btn btn-secondary" onclick="hideAmenityForm()">Cancel</button>
+      <button type="button" class="btn btn-primary" onclick="saveAmenity()">
+        <i class="fas fa-save me-2"></i>Add Amenity
+      </button>
+    </div>
+  </form>
+</div>
+
+  <!-- Amenities Grid -->
+  <div class="row">
+    
     <!-- Amenity Card Example -->
+
+      <div class="row mt-4" id="amenitiesCardsContainer">
+        <!-- Amenity cards will be injected here -->
+      </div>
+      <!-- Emptystate-->
+        <div class="empty-state" id="emptyState" style="display: none;">
+              <i class="fa-solid fa-location-dot"></i>
+                <h4>No Amenities Found</h4>
+                <p>Start by adding your first Amenity to the system.</p>
+            </div>
+
+<!--
     <div class="col-md-6 col-lg-4 mb-4">
       <div class="card h-100 shadow-sm">
         <div class="card-body">
@@ -173,8 +287,8 @@
         </div>
       </div>
     </div>
-
-    <!-- Additional Amenity Example -->
+-->
+    <!--  
     <div class="col-md-6 col-lg-4 mb-4">
       <div class="card h-100 shadow-sm">
         <div class="card-body">
@@ -291,49 +405,152 @@
         </div>
       </div>
     </div>
+-->
 
-   
+ 
+
   </div>
 </section>
     </div>
     </div>
 
-    <!-- New Amenity Modal -->
-<div class="modal fade" id="newAmenityModal" tabindex="-1" aria-labelledby="newAmenityModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header" style="border: none;">
-        <h5 class="modal-title" id="newAmenityModalLabel">Add New Amenity</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form id="amenityForm">
-          <div class="mb-3">
-            <label for="amenityName" class="form-label">Amenity Name</label>
-            <input type="text" class="form-control" id="amenityName" placeholder="e.g., Spa, Gym" required>
-          </div>
-          <div class="mb-3">
-            <label for="amenityDescription" class="form-label">Description</label>
-            <textarea class="form-control" id="amenityDescription" rows="3" placeholder="Short description of the amenity"></textarea>
-          </div>
-          <div class="mb-3">
-            <label for="amenityIcon" class="form-label">Icon Emoji</label>
-            <input type="text" class="form-control" id="amenityIcon" placeholder="e.g., 🧖‍♀️">
-          </div>
-          <div class="mb-3">
-            <label for="amenityHours" class="form-label">Available Hours</label>
-            <input type="text" class="form-control" id="amenityHours" placeholder="e.g., 7AM - 10PM">
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="submit" form="amenityForm" class="btn btn-primary">Save Amenity</button>
-      </div>
-    </div>
-  </div>
-</div>
+ 
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="Assests/js/Amenities.js"></script>
+  <script>
+let amenities = [];
+let editingAmenityId = null;
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadAmenities();
+});
+
+function showAmenityForm() {
+  document.getElementById('AmenitiesFormSection').style.display = 'block';
+  document.getElementById('amenitiesCardsContainer').style.display = 'none';
+  document.getElementById('emptyState').style.display = 'none';
+  resetAmenityForm();
+}
+
+function hideAmenityForm() {
+  document.getElementById('AmenitiesFormSection').style.display = 'none';
+  document.getElementById('amenitiesCardsContainer').style.display = 'flex';
+  document.getElementById('emptyState').style.display = 'none';
+  resetAmenityForm();
+}
+
+function resetAmenityForm() {
+  document.getElementById('amenitiesForm').reset();
+  editingAmenityId = null;
+}
+
+function saveAmenity() {
+  const icon = document.getElementById('icon').value;
+  const name = document.getElementById('name').value;
+  const description = document.getElementById('description').value;
+  const opening = document.getElementById('opening').value;
+  const closing = document.getElementById('closing').value;
+  const status = document.getElementById('status').value;
+
+  if (!icon || !name || !description || !opening || !closing || !status) {
+    alert('Please fill in all fields.');
+    return;
+  }
+
+  const amenityData = {
+    id: editingAmenityId || Date.now().toString(),
+    icon,
+    name,
+    description,
+    opening,
+    closing,
+    status
+  };
+
+  if (editingAmenityId) {
+    const index = amenities.findIndex(a => a.id === editingAmenityId);
+    if (index !== -1) amenities[index] = amenityData;
+  } else {
+    amenities.push(amenityData);
+  }
+
+  localStorage.setItem('hotelAmenities', JSON.stringify(amenities));
+  renderAmenities();
+  hideAmenityForm();
+}
+
+function renderAmenities() {
+  const container = document.getElementById('amenitiesCardsContainer');
+  const emptyState = document.getElementById('emptyState');
+  container.innerHTML = '';
+
+  if (amenities.length === 0) {
+    emptyState.style.display = 'block';
+    return;
+  }
+
+  amenities.forEach(amenity => {
+    const statusClass = amenity.status === 'active' ? 'bg-success' :
+                        amenity.status === 'maintenance' ? 'bg-warning' : 'bg-danger';
+
+    container.innerHTML += `
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+              <div class="d-flex align-items-center">
+                <span class="fs-3 me-2"><i class="fa-solid ${amenity.icon}"></i></span>
+                <h5 class="card-title mb-0">${amenity.name}</h5>
+              </div>
+              <span class="badge ${statusClass}">${capitalize(amenity.status)}</span>
+            </div>
+            <p class="card-text text-muted">${amenity.description}</p>
+            <div class="d-flex justify-content-between">
+              <small class="text-muted">Hours: ${amenity.opening} - ${amenity.closing}</small>
+              <div class="d-flex gap-2">
+                <button onclick="editAmenity('${amenity.id}')" class="btn btn-sm text-primary p-0">Edit</button>
+                <button onclick="deleteAmenity('${amenity.id}')" class="btn btn-sm text-danger p-0">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+}
+
+function editAmenity(id) {
+  const amenity = amenities.find(a => a.id === id);
+  if (!amenity) return;
+
+  editingAmenityId = id;
+  showAmenityForm();
+  document.getElementById('icon').value = amenity.icon;
+  document.getElementById('name').value = amenity.name;
+  document.getElementById('description').value = amenity.description;
+  document.getElementById('opening').value = amenity.opening;
+  document.getElementById('closing').value = amenity.closing;
+  document.getElementById('status').value = amenity.status;
+}
+
+function deleteAmenity(id) {
+  if (!confirm('Are you sure you want to delete this amenity?')) return;
+  amenities = amenities.filter(a => a.id !== id);
+  localStorage.setItem('hotelAmenities', JSON.stringify(amenities));
+  renderAmenities();
+}
+
+function loadAmenities() {
+  const saved = localStorage.getItem('hotelAmenities');
+  if (saved) amenities = JSON.parse(saved);
+  renderAmenities();
+}
+
+function capitalize(text) {
+  return text.charAt(0).toUpperCase() + text.slice(1);
+}
+</script>
+
     </body>
 </html>
