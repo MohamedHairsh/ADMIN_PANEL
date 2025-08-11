@@ -82,7 +82,7 @@ async function fetchBedTypes() {
         const data = await res.json();
 
         // Only keep bedType (ignore IDs)
-        bedTypes = data.map(item => item.bedTypes);
+        bedTypes = data.map(item => item.bedType);
         renderBedTypes();
 
    
