@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel - Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="Assests/css/HotelAdmin.css" rel="stylesheet">
+</head>
+<body> 
+    <style>
+           .review-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .review-stat-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid var(--border-color);
+        }
+
+        .review-stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 1rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .review-stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .review-stat-label {
+            color: var(--text-muted);
+            font-weight: 500;
+        }.response-section {
+            background: #f8fafc;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .response-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .response-badge {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary-color);
+        } /* Review Styles */
+        .review-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+        .review-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .reviewer-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .reviewer-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-right: 1rem;
+        }
+
+        .reviewer-details h6 {
+            margin: 0;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        .reviewer-details small {
+            color: var(--text-muted);
+        }
+
+        .rating-stars {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .star {
+            color: #fbbf24;
+            font-size: 1.1rem;
+        }
+
+        .star.empty {
+            color: #e5e7eb;
+        }
+
+        .review-content {
+            color: var(--dark-color);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .review-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .review-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .rating-summary {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .overall-rating {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .rating-breakdown {
+            margin: 1.5rem 0;
+        }
+
+        .rating-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .rating-label {
+            width: 60px;
+            text-align: right;
+            margin-right: 1rem;
+            font-weight: 500;
+        }
+
+        .rating-bar {
+            flex: 1;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-right: 1rem;
+        }
+
+        .rating-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #fbbf24, #f59e0b);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .rating-count {
+            width: 40px;
+            text-align: left;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .review-filters {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--border-color);
+            background: white;
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            border-color: var(--primary-color);
+            background: var(--primary-color);
+            color: white;
+        }
+
+    </style>
+       <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h5><i class="fas fa-hotel"></i> Hotel Management</h5>
+            </div>
+            <nav class="sidebar-nav">
+            <div class="nav-item">
+                <a href="HotelAdmin.html" class="nav-link">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                </div>
+
+                <div class="nav-item">
+                    <a href="BookingAdmin.html" class="nav-link">
+                        <i class="fas fa-calendar-check"></i>
+                    <span>Bookings</span>
+                    </a>
+                </div>
+                 <div class="nav-item">
+               
+            </div>
+
+
+           <div class="nav-item">
+                <a href="#" class="nav-link toggle-submenu">
+                    <i class="fas fa-bed"></i>
+                  <span>Master</span>
+                </a>
+
+            <div class="submenu">
+                <a href="Amenities.html" class="nav-link"><i class="fa-solid fa-spa"></i><span>Amenities</span></a>
+                 <a href="Room.html" class="nav-link">
+                   <i class="fa-solid fa-hotel"></i>
+                  <span>Room</span>
+                </a>
+                 <a href="MasterRooms.html" class="nav-link">
+                    <i class="fas fa-bed"></i>
+                  <span>Master Room</span>
+                </a>
+                
+            </div>
+            </div>
+                    
+                <!--  <div class="nav-item">
+                <a href="Guests.html" class="nav-link">
+                    <i class="fas fa-users"></i>
+                   <span>Guests</span>
+                </a>
+            </div>-->
+        
+                <div class="nav-item">
+                    <a href="Staff.html" class="nav-link">
+                        <i class="fas fa-user-tie"></i>
+                    <span>Staff</span>
+                    </a>
+                </div>
+                 <div class="nav-item">
+                <a href="Rating.html" class="nav-link">
+                   <i class="fa-solid fa-star"></i>
+                   <span>Rating and Review</span>
+                </a>
+            </div>
+                <div class="nav-item">
+                    <a href="Profile.html" class="nav-link">
+                        <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+   <!-- Main Content -->
+    <div class="main-content">
+  <!-- Top Navbar -->
+        <nav class="top-navbar">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <button class="btn btn-link" id="sidebarToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h4 class="mb-0 ms-2">Admin Dashboard</h4>
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="dropdown me-3">
+                        <button class="btn btn-outline-primary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" style="border: none;">
+                            <i class="fas fa-bell"><sup>3</sup></i>
+                           
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">New booking received</a></li>
+                            <li><a class="dropdown-item" href="#">Room maintenance required</a></li>
+                            <li><a class="dropdown-item" href="#">Payment pending</a></li>
+                        </ul>
+                    </div>
+                 <div class="user-profile">
+                <span>Welcome, Admin</span>
+                <div class="user-avatar">A</div>
+            </div>
+                </div>
+            </div>
+        </nav>
+   <!-- Content Area -->       
+        <div class="content-area">
+     <!-- Reviews & Ratings Section -->
+            <div class="content-section">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h3>Reviews & Ratings Management</h3>
+                    <div>
+                        <button class="btn btn-outline-primary me-2">
+                            <i class="fas fa-download"></i> Export Reviews
+                        </button>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#respondReviewModal">
+                            <i class="fas fa-reply"></i> Respond to Review
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Review Statistics -->
+                <div class="review-stats-grid">
+                    <div class="stats-card">
+                            <i class="fas fa-star"></i>
+                        <div class="review-stat-number">4.8</div>
+                        <div class="review-stat-label">Overall Rating</div>
+                    </div>
+                    <div class="stats-card">
+                            <i class="fas fa-comments"></i>
+                        <div class="review-stat-number">1,247</div>
+                        <div class="review-stat-label">Total Reviews</div>
+                    </div>
+                    <div class="stats-card">
+                            <i class="fas fa-calendar-day"></i>
+                        <div class="review-stat-number">23</div>
+                        <div class="review-stat-label">This Month</div>
+                    </div>
+                    <div class="stats-card">
+                            <i class="fas fa-reply"></i>
+                        <div class="review-stat-number">95%</div>
+                        <div class="review-stat-label">Response Rate</div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Rating Summary -->
+                    <div class="col-lg-4 mb-4">
+                        <div class="rating-summary">
+                            <div class="overall-rating">4.8</div>
+                            <div class="rating-stars mb-2">
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                                <i class="fas fa-star star"></i>
+                            </div>
+                            <p class="text-muted mb-3">Based on 1,247 reviews</p>
+                            
+                            <div class="rating-breakdown">
+                                <div class="rating-row">
+                                    <span class="rating-label">5★</span>
+                                    <div class="rating-bar">
+                                        <div class="rating-fill" style="width: 78%"></div>
+                                    </div>
+                                    <span class="rating-count">973</span>
+                                </div>
+                                <div class="rating-row">
+                                    <span class="rating-label">4★</span>
+                                    <div class="rating-bar">
+                                        <div class="rating-fill" style="width: 15%"></div>
+                                    </div>
+                                    <span class="rating-count">187</span>
+                                </div>
+                                <div class="rating-row">
+                                    <span class="rating-label">3★</span>
+                                    <div class="rating-bar">
+                                        <div class="rating-fill" style="width: 5%"></div>
+                                    </div>
+                                    <span class="rating-count">62</span>
+                                </div>
+                                <div class="rating-row">
+                                    <span class="rating-label">2★</span>
+                                    <div class="rating-bar">
+                                        <div class="rating-fill" style="width: 1.5%"></div>
+                                    </div>
+                                    <span class="rating-count">19</span>
+                                </div>
+                                <div class="rating-row">
+                                    <span class="rating-label">1★</span>
+                                    <div class="rating-bar">
+                                        <div class="rating-fill" style="width: 0.5%"></div>
+                                    </div>
+                                    <span class="rating-count">6</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reviews List -->
+                    <div class="col-lg-8">
+                        <!-- Review Filters -->
+                        <div class="review-filters">
+                            <button class="filter-btn active" data-filter="all">All Reviews</button>
+                            <button class="filter-btn" data-filter="5">5 Stars</button>
+                            <button class="filter-btn" data-filter="4">4 Stars</button>
+                            <button class="filter-btn" data-filter="3">3 Stars</button>
+                            <button class="filter-btn" data-filter="2">2 Stars</button>
+                            <button class="filter-btn" data-filter="1">1 Star</button>
+                            <button class="filter-btn" data-filter="responded">Responded</button>
+                            <button class="filter-btn" data-filter="pending">Pending Response</button>
+                        </div>
+
+                        <!-- Individual Reviews -->
+                        <div class="reviews-container">
+                            <!-- Review 1 -->
+                            <div class="review-card" data-rating="5" data-status="responded">
+                                <div class="review-header">
+                                    <div class="reviewer-info">
+                                        <div class="reviewer-avatar">JS</div>
+                                        <div class="reviewer-details">
+                                            <h6>Harish</h6>
+                                            <small>Verified Guest • Room 201 • Jan 15, 2024</small>
+                                        </div>
+                                    </div>
+                                    <div class="rating-stars">
+                                        <i class="fas fa-star star"></i>
+                                        <i class="fas fa-star star"></i>
+                                        <i class="fas fa-star star"></i>
+                                        <i class="fas fa-star star"></i>
+                                        <i class="fas fa-star star"></i>
+                                    </div>
+                                </div>
+                                <div class="review-content">
+                                    <p><strong>Exceptional Experience!</strong></p>
+                                    <p>My stay at LuxStay Hotel was absolutely wonderful. The staff was incredibly welcoming and professional. The room was spacious, clean, and beautifully decorated. The amenities were top-notch, especially the spa and pool area. The location is perfect for both business and leisure travelers. I particularly enjoyed the breakfast buffet - such a great variety of fresh, delicious options. Will definitely be returning on my next visit to the city!</p>
+                                </div>
+                                <div class="review-meta">
+                                    <div>
+                                        <i class="fas fa-thumbs-up"></i> 12 people found this helpful
+                                    </div>
+                                    <div class="review-actions">
+                                        <button class="btn btn-outline-primary btn-sm">
+                                            <i class="fas fa-flag"></i> Report
+                                        </button>
+                                        <button class="btn btn-primary btn-sm">
+                                            <i class="fas fa-reply"></i> Respond
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="response-section">
+                                    <div class="response-header">
+                                        <span class="response-badge">Hotel Response</span>
+                                        <small class="text-muted">Jan 16, 2024</small>
+                                    </div>
+                                    <p class="mb-0">Dear John, thank you so much for your wonderful review! We're thrilled to hear that you had such an exceptional experience with us. Your kind words about our staff, amenities, and breakfast buffet mean the world to us. We look forward to welcoming you back on your next visit! - Management Team</p>
+                                </div>
+                            </div>
+
+                            <!-- Review 2 -->
+                            <div class="review-card" data-rating="4" data-status="responded">
+                                <div class="review-header">
+                                    <div class="reviewer-info">
+                                        <div class="reviewer-avatar">SJ</div>
+                                        <div class="reviewer-details">
+                                            <h6>Sarah Johnson</h6>
+                                            <small>Verified Guest • Room 105 • Jan 12, 2024</small>
+                                        </div>
+                                    </div>
+                                    <div class="rating-stars">
+                                        <i class="fas fa-star star"></i>
+                                        <i class="fas fa-star star"></i>
+                                        <i class="fas fa-star star"></i>
+                                        <i class="fas fa-star star"></i>
+                                        <i class="fas fa-star star empty"></i>
+                                    </div>
+                                </div>
+                                <div class="review-content">
+                                    <p><strong>Great Stay with Minor Issues</strong></p>
+                                    <p>Overall, I had a very pleasant stay at LuxStay Hotel. The room was comfortable and the location is excellent. The staff at the front desk were very helpful and friendly. However, I did experience some noise from the construction work nearby during early morning hours. The gym facilities were great and well-maintained. The restaurant food was delicious, though a bit pricey. Would recommend for business travelers.</p>
+                                </div>
+                                <div class="review-meta">
+                                    <div>
+                                        <i class="fas fa-thumbs-up"></i> 8 people found this helpful
+                                    </div>
+                                    <div class="review-actions">
+                                        <button class="btn btn-outline-primary btn-sm">
+                                            <i class="fas fa-flag"></i> Report
+                                        </button>
+                                        <button class="btn btn-primary btn-sm">
+                                            <i class="fas fa-reply"></i> Respond
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="response-section">
+                                    <div class="response-header">
+                                        <span class="response-badge">Hotel Response</span>
+                                        <small class="text-muted">Jan 13, 2024</small>
+                                    </div>
+                                    <p class="mb-0">Dear Sarah, thank you for your feedback! We're glad you enjoyed your stay and found our staff helpful. We sincerely apologize for the construction noise - we've since adjusted our quiet hours policy. We appreciate your understanding and hope to welcome you back soon! - Management Team</p>
+                                </div>
+                            </div>
+
+                            <!-- Review 3 -->
+                            <div class="review-card" data-rating="5" data-status="pending">
+                                <div class="review-header">
+                                    <div class="reviewer-info">
+                                        <div class="reviewer-avatar">MB</div>
+                                        <div class="reviewer-details">
+                                            <h6>Michael Brown</h6>
+                                            <small>Verified Guest • Room 301 • Jan 18, 2024</small>
+                                        </div>
+                                    </div>
+                                    <div class="rating-stars">
+                                        <i class="fas fa-star star"></i>
+                                        <i class="fas fa-star star"></i>
+                                        <i class="fas fa-star star"></i>
+                                        <i class="fas fa-star star"></i>
+                                        <i class="fas fa-star star"></i>
+                                    </div>
+                                </div>
+                                <div class="review-content">
+                                    <p><strong>Perfect for Business Travel</strong></p>
+                                    <p>Stayed here for a week-long business conference and couldn't be happier with the choice. The executive suite was spacious and well-appointed with everything I needed for work. The business center and conference facilities are excellent. The concierge service was outstanding - they helped arrange all my transportation and dinner reservations. The spa was a perfect way to unwind after long conference days. Highly recommend!</p>
+                                </div>
+                                <div class="review-meta">
+                                    <div>
+                                        <i class="fas fa-thumbs-up"></i> 5 people found this helpful
+                                    </div>
+                                    <div class="review-actions">
+                                        <button class="btn btn-outline-primary btn-sm">
+                                            <i class="fas fa-flag"></i> Report
+                                        </button>
+                                        <button class="btn btn-primary btn-sm">
+                                            <i class="fas fa-reply"></i> Respond
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Review 4 -->
+                            <div class="review-card" data-rating="3" data-status="responded">
+                                <div class="review-header">
+                                    <div class="reviewer-info">
+                                        <div class="reviewer-avatar">EW</div>
+                                        <div class="reviewer-details">
+                                            <h6>Emily Wilson</h6>
+                                            <small>Verified Guest • Room 208 • Jan 10, 2024</small>
+                                        </div>
+                                    </div>
+                                    <div class="rating-stars">
+                                        <i class="fas fa-star star"></i>
+                                        <i class="fas fa-star star"></i>
+                                        <i class="fas fa-star star"></i>
+                                        <i class="fas fa-star star empty"></i>
+                                        <i class="fas fa-star star empty"></i>
+                                    </div>
+                                </div>
+                                <div class="review-content">
+                                    <p><strong>Average Experience</strong></p>
+                                    <p>The hotel is decent but didn't quite meet my expectations for the price point. The room was clean but felt a bit dated. The air conditioning was noisy and the WiFi was slow. The staff were polite but not particularly attentive. The pool area was nice but quite crowded. The breakfast was okay but limited options for dietary restrictions. It's not bad, but there are better options in the area for the same price.</p>
+                                </div>
+                                <div class="review-meta">
+                                    <div>
+                                        <i class="fas fa-thumbs-up"></i> 3 people found this helpful
+                                    </div>
+                                    <div class="review-actions">
+                                        <button class="btn btn-outline-primary btn-sm">
+                                            <i class="fas fa-flag"></i> Report
+                                        </button>
+                                        <button class="btn btn-primary btn-sm">
+                                            <i class="fas fa-reply"></i> Respond
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="response-section">
+                                    <div class="response-header">
+                                        <span class="response-badge">Hotel Response</span>
+                                        <small class="text-muted">Jan 11, 2024</small>
+                                    </div>
+                                    <p class="mb-0">Dear Emily, thank you for your honest feedback. We're sorry your stay didn't meet expectations. We've noted your concerns about the AC and WiFi, and our maintenance team is addressing these issues. We're also expanding our breakfast options for dietary restrictions. We'd love the opportunity to provide you with a better experience in the future. - Management Team</p>
+                                </div>
+                            </div>
+
+                            <!-- Review 5 -->
+                            <div class="review-card" data-rating="5" data-status="pending">
+                                <div class="review-header">
+                                    <div class="reviewer-info">
+                                        <div class="reviewer-avatar">DL</div>
+                                        <div class="reviewer-details">
+                                            <h6>David Lee</h6>
+                                            <small>Verified Guest • Room 401 • Jan 20, 2024</small>
+                                        </div>
+                                    </div>
+                                    <div class="rating-stars">
+                                        <i class="fas fa-star star"></i>
+                                        <i class="fas fa-star star"></i>
+                                        <i class="fas fa-star star"></i>
+                                        <i class="fas fa-star star"></i>
+                                        <i class="fas fa-star star"></i>
+                                    </div>
+                                </div>
+                                <div class="review-content">
+                                    <p><strong>Anniversary Celebration</strong></p>
+                                    <p>My wife and I stayed here for our 10th anniversary and it was absolutely perfect! The staff went above and beyond to make our stay special - they decorated our room with rose petals and champagne upon arrival. The restaurant's romantic dinner was exquisite, and the spa couples massage was incredibly relaxing. The attention to detail and personalized service made this a truly memorable experience. Thank you for helping make our anniversary so special!</p>
+                                </div>
+                                <div class="review-meta">
+                                    <div>
+                                        <i class="fas fa-thumbs-up"></i> 15 people found this helpful
+                                    </div>
+                                    <div class="review-actions">
+                                        <button class="btn btn-outline-primary btn-sm">
+                                            <i class="fas fa-flag"></i> Report
+                                        </button>
+                                        <button class="btn btn-primary btn-sm">
+                                            <i class="fas fa-reply"></i> Respond
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Load More Button -->
+                        <div class="text-center mt-4">
+                            <button class="btn btn-outline-primary" id="loadMoreReviews">
+                                <i class="fas fa-plus"></i> Load More Reviews
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+    </div>
+
+</div>
+
+ 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="Assests/js/Guests.js"></script>
+
+    </body>
+</html>

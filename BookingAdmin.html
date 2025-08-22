@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LuxStay Hotel - Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="Assests/css/HotelAdmin.css" rel="stylesheet">
+</head>
+<body>
+ <style>
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .page-title {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin: 0;
+            font-size: 1.875rem;
+        }
+
+        .page-subtitle {
+            color: #64748b;
+            font-size: 0.875rem;
+            margin: 0;
+            margin-top: 0.25rem;
+        }
+         /* Modal Styles */
+        .modal-content {
+            border-radius: 12px;
+            border: none;
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .modal-header {
+            background: var(--primary-color);
+            color: white;
+            border-radius: 12px 12px 0 0;
+            border-bottom: none;
+            padding: 1.5rem;
+        }
+
+        .modal-title {
+            font-weight: 600;
+            font-size: 1.125rem;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .modal-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .form-control, .form-select {
+            border-radius: 8px;
+            border: 1px solid #d1d5db;
+            padding: 0.75rem 1rem;
+            transition: all 0.2s ease;
+            font-size: 0.875rem;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            outline: none;
+        }
+
+        .form-text {
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+
+        /* Image Upload Area */
+        .image-upload-section {
+            border: 2px dashed #d1d5db;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            background: #f8fafc;
+            position: relative;
+        }
+
+        .image-upload-section:hover {
+            border-color: var(--secondary-color);
+            background: #eff6ff;
+        }
+
+        .image-upload-section.dragover {
+            border-color: var(--secondary-color);
+            background: #dbeafe;
+        }
+
+        .upload-icon {
+            font-size: 2.5rem;
+            color: #9ca3af;
+            margin-bottom: 1rem;
+        }
+
+        .upload-content h5 {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .upload-content p {
+            color: #64748b;
+            margin-bottom: 0.5rem;
+        }
+
+        .images-preview-grid {
+            margin-top: 1.5rem;
+        }
+
+        .image-slot {
+            position: relative;
+            aspect-ratio: 1;
+            border: 2px dashed #d1d5db;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #f8fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .image-slot.filled {
+            border: 2px solid var(--success-color);
+            background: white;
+        }
+
+        .image-slot:not(.filled)::before {
+            content: '+';
+            font-size: 2rem;
+            color: #9ca3af;
+            font-weight: 300;
+        }
+
+        .preview-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.2s ease;
+        }
+
+        .image-overlay {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .image-slot:hover .image-overlay {
+            opacity: 1;
+        }
+
+        .remove-image {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            background: rgba(220, 38, 38, 0.9);
+            border: none;
+            color: white;
+            font-size: 0.75rem;
+        }
+
+        .remove-image:hover {
+            background: var(--accent-color);
+        }
+
+        .upload-progress {
+            margin-top: 1rem;
+        }
+
+        .progress {
+            height: 6px;
+            border-radius: 3px;
+        }
+
+        /* Search and Filter Section */
+        .search-filter-section {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--card-shadow);
+            border: 1px solid #e2e8f0;
+        }
+
+        .input-group-text {
+            background: #f8fafc;
+            border-color: #d1d5db;
+            color: #64748b;
+        }
+
+        .btn-outline-secondary {
+            border-color: #d1d5db;
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+
+        .btn-outline-secondary:hover {
+            background: #f1f5f9;
+            border-color: #9ca3af;
+            color: #374151;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .main-content {
+                margin-left: 0;
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .add-room-btn {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .content-container {
+                padding: 1rem;
+                margin: 10px;
+                border-radius: 15px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .main-content {
+                padding: 10px;
+            }
+            
+            .modal-dialog {
+                margin: 10px;
+            }
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #6c757d;
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        /* Table View Styles */
+        .rooms-table {
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+
+        .table {
+            margin-bottom: 0;
+        }
+
+        .table th {
+            background: #f8fafc;
+            border-bottom: 2px solid #e2e8f0;
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 0.875rem;
+            padding: 1rem;
+        }
+
+        .table td {
+            padding: 1rem;
+            vertical-align: middle;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .table tbody tr:hover {
+            background: #f8fafc;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-available {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-occupied {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-maintenance {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .btn-group .btn.active {
+            background: var(--secondary-color);
+            border-color: var(--secondary-color);
+            color: white;
+        }
+
+        .table-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .table-actions .btn {
+            padding: 0.375rem 0.75rem;
+            font-size: 0.75rem;
+        }
+
+        /* Room Form Section */
+        .room-form-section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #e2e8f0;
+        }
+
+        .form-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .form-header h4 {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        /* Single Image Upload */
+        .single-image-upload {
+            border: 2px dashed #d1d5db;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            background: #f8fafc;
+            position: relative;
+            height: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .single-image-upload:hover {
+            border-color: var(--secondary-color);
+            background: #eff6ff;
+        }
+
+        .single-image-upload.dragover {
+            border-color: var(--secondary-color);
+            background: #dbeafe;
+        }
+
+        .single-image-upload .upload-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .single-image-upload .upload-icon {
+            font-size: 2rem;
+            color: #9ca3af;
+            margin-bottom: 0.5rem;
+        }
+
+        .single-image-upload .upload-content p {
+            margin: 0.25rem 0;
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+
+        .image-preview {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-preview img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+
+        .remove-single-image {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            background: rgba(220, 38, 38, 0.9);
+            border: none;
+            color: white;
+            font-size: 0.75rem;
+        }
+
+        .remove-single-image:hover {
+            background: var(--accent-color);
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+    
+ <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h5><i class="fas fa-hotel"></i> Hotel Management</h5>
+            </div>
+            <nav class="sidebar-nav">
+            <div class="nav-item">
+                <a href="HotelAdmin.html" class="nav-link">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                </div>
+
+                <div class="nav-item">
+                    <a href="BookingAdmin.html" class="nav-link">
+                        <i class="fas fa-calendar-check"></i>
+                    <span>Bookings</span>
+                    </a>
+                </div>
+                 <div class="nav-item">
+               
+            </div>
+
+
+           <div class="nav-item">
+                <a href="#" class="nav-link toggle-submenu">
+                    <i class="fas fa-bed"></i>
+                  <span>Master</span>
+                </a>
+
+            <div class="submenu">
+                <a href="Amenities.html" class="nav-link"><i class="fa-solid fa-spa"></i><span>Amenities</span></a>
+                 <a href="Room.html" class="nav-link">
+                   <i class="fa-solid fa-hotel"></i>
+                  <span>Room</span>
+                </a>
+                 <a href="MasterRooms.html" class="nav-link">
+                    <i class="fas fa-bed"></i>
+                  <span>Master Room</span>
+                </a>
+                
+            </div>
+            </div>
+                    
+                <!--  <div class="nav-item">
+                <a href="Guests.html" class="nav-link">
+                    <i class="fas fa-users"></i>
+                   <span>Guests</span>
+                </a>
+            </div>-->
+        
+        
+                <div class="nav-item">
+                    <a href="Staff.html" class="nav-link">
+                        <i class="fas fa-user-tie"></i>
+                    <span>Staff</span>
+                    </a>
+                </div>
+                 <div class="nav-item">
+                <a href="Rating.html" class="nav-link">
+                   <i class="fa-solid fa-star"></i>
+                   <span>Rating and Review</span>
+                </a>
+            </div>
+                <div class="nav-item">
+                    <a href="Profile.html" class="nav-link">
+                        <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+
+ <!-- Main Content -->
+    <div class="main-content">
+         <!-- Top Navbar -->
+          <nav class="top-navbar">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <button class="btn btn-link" id="sidebarToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h4 class="mb-0 ms-2">Admin Dashboard</h4>
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="dropdown me-3">
+                        <button class="btn btn-outline-primary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" style="border: none;">
+                            <i class="fas fa-bell"><sup>3</sup></i>
+                           
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">New booking received</a></li>
+                            <li><a class="dropdown-item" href="#">Room maintenance required</a></li>
+                            <li><a class="dropdown-item" href="#">Payment pending</a></li>
+                        </ul>
+                    </div>
+               <div class="user-profile">
+                <span>Welcome, Admin</span>
+                <div class="user-avatar">A</div>
+            </div>
+                </div>
+            </div>
+        </nav>
+   <!-- Content Area -->       
+        <div class="content-area">
+        <div class="content-container"> 
+             <div class="row mb-4">
+                    <div class="col-md-3 mb-3">
+                        <div class="stats-card text-center">
+                            <div class="stats-icon mx-auto" style="background: linear-gradient(135deg, #059669, #047857);">
+                                <i class="fas fa-bed"></i>
+                            </div>
+                            <div class="stat-number">30</div>
+                            <div class="stats-label">Total Rooms</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="stats-card text-center">
+                            <div class="stats-icon mx-auto" style="background: linear-gradient(135deg, #dc2626, #b91c1c);">
+                                <i class="fas fa-door-closed"></i>
+                            </div>
+                            <div class="stat-number">18</div>
+                            <div class="stat-label">Available Rooms</div>
+                        </div>
+                    </div>
+                    <!--
+                    <div class="col-md-3 mb-3">
+                        <div class="stats-card text-center">
+                            <div class="stat-icon mx-auto" style="background: linear-gradient(135deg, #d97706, #b45309);">
+                                <i class="fas fa-tools"></i>
+                            </div>
+                            <div class="stat-number">7</div>
+                            <div class="stat-label">Maintenance</div>
+                        </div>
+                    </div>-->
+                    <div class="col-md-3 mb-3">
+                        <div class="stats-card text-center">
+                            <div class="stat-icon mx-auto" style="background: linear-gradient(135deg, #2563eb, #1d4ed8);">
+                                <i class="fas fa-home"></i>
+                            </div>
+                            <div class="stat-number">10</div>
+                            <div class="stat-label">Booked Rooms</div>
+                        </div>
+                    </div>
+                     <div class="col-md-3 mb-3">
+                        <div class="stats-card text-center">
+                            <div class="stat-icon mx-auto" style="background: linear-gradient(135deg, #d97706, #b45309);">
+                              <i class="fa-regular fa-clock"></i>
+                            </div>
+                            <div class="stat-number">2</div>
+                            <div class="stat-label">pending Rooms</div>
+                        </div>
+                    </div>
+                </div>
+             </div>
+            
+          
+             
+
+            <!-- Add/Edit Room Form Section -->
+            <div class="room-form-section" id="roomFormSection" style="display: none;">
+                <form id="roomForm">
+                    <div class="row g-3">
+                      
+                        <div class="col-md-4">
+                            <label class="form-label">Guest Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="guestname" placeholder="Enter Guest Name as per Govt.Id" required>                        </div>
+                         <div class="col-md-4">
+                            <label class="form-label">Guest Email <span class="text-danger">*</span></label>
+                            <input type="email" class="form-control" id="email" placeholder="Enter Guest email" required>
+                        </div>
+                         <div class="col-md-4">
+                            <label class="form-label">Mobile No <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" id="mobile" maxlength="10" required placeholder="Enter Guest Mobile Number">
+                         </div>
+                    </div>
+                      <div class="row g-3 mt-2">
+                         <div class="col-md-4">
+                            <label class="form-label"> Address <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="address" placeholder="Enter Guest Address">                        
+                          </div>
+                        <div class="col-md-4">
+                            <label class="form-label"> Check-in <span class="text-danger">*</span></label>
+                            <input type="date" class="form-control" id="Checkin" required>                        
+                          </div>
+                         <div class="col-md-4">
+                            <label class="form-label"> Check-out <span class="text-danger">*</span></label>
+                            <input type="date" class="form-control" id="Checkout" required>
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mt-2">
+                       <div class="col-md-4">
+                            <label class="form-label"> Adults <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" id="Maxadults" placeholder="Total No of Adults" required>
+                         </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Children</label>
+                            <input type="number" class="form-control" id="Maxchild" min="0" placeholder="children Age Below 17 Years">
+                        </div>
+                         <div class="col-md-4">
+                       <label class="form-label">Room Type <span class="text-danger">*</span></label>
+                            <select class="form-select" id="roomType" required>
+                                <option value="">Select Room Type</option> 
+                            </select>
+                       </div>
+                       
+                    </div>
+
+                    <div class="row g-3 mt-2">
+                        <div class="col-md-4">
+                            <label class="form-label">Bed Type <span class="text-danger">*</span></label>
+                            <select class="form-select" id="bedType" required>
+                               <option value="">Select Bed Type</option>
+                          </select>
+
+                       </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Room Capacity</label>
+                            <input type="number" class="form-control" id="maxOccupancy" min="1" placeholder="Total No of Guest's">
+                        </div>
+
+                        
+                    </div>
+
+                    <div class="row g-4 mt-2">
+                        <div class="col-md-4">
+                            <label class="form-label">Upload ID Proof	<span class="text-danger">*</span></label>
+                            <div class="single-image-upload" id="singleImageUpload">
+                                <div class="upload-content" id="uploadContent">
+                                    <i class="fas fa-image upload-icon"></i>
+                                    <p>Upload a valid Govt Id proff of guest</p>
+                                    <p class="small text-muted">Max 5MB | JPG, PNG, GIF, WebP</p>
+                                    <input type="file" id="roomImage" accept="image/*" style="display: none;" required>
+                                </div>
+                                <div class="image-preview" id="imagePreview" style="display: none;">
+                                    <img id="previewImg" alt="Room Preview" class="preview-image">
+                                    <button type="button" class="btn btn-sm btn-danger remove-single-image" onclick="removeSingleImage()">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions mt-4">
+                        <button type="button" class="btn btn-secondary" onclick="hideRoomForm()">Cancel</button>
+                        <button type="button" class="btn btn-primary" id="saveRoomBtn" onclick="saveRoom()">
+                            <i class="fas fa-save me-2"></i>Save Room
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        
+          <!-- Search and Filter Section -->
+            <div class="search-filter-section" id="searchFilterSection">
+              <div class="row g-4">
+                <!-- Search by Guest Name -->
+                <div class="col-md-3">
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-search"></i></span>
+                    <input type="text" class="form-control" id="searchGuest" placeholder="Search by Guest Name...">
+                  </div>
+                </div>
+
+                <!-- Filter by Room Type -->
+                <div class="col-md-3">
+                  <select class="form-select" id="filterRoomType">
+                    <option value="">Room Types</option>
+                    <option value="standard">Deluxe King Room</option>
+                    <option value="deluxe">Deluxe Double Room</option>
+                    <option value="executive">Executive Suite with Bathtub</option>
+                    <option value="royal">Royal Suite Room</option>
+                  </select>
+                </div>
+
+                <!-- Filter by Bed Type -->
+                <div class="col-md-3">
+                  <select class="form-select" id="filterBedType">
+                    <option value="">Bed Types</option>
+                    <option value="king">King Bed Room</option>
+                    <option value="standard">Deluxe King Room</option>
+                    <option value="deluxe">Deluxe Double Room</option>
+                    <option value="executive">Executive Suite with Bathtub</option>
+                    <option value="royal">Royal Suite Room</option>
+                  </select>
+                </div>
+
+                <!-- Filter by Booking Status -->
+                <div class="col-md-3">
+                  <select class="form-select" id="filterStatus">
+                    <option value="">Status</option>
+                    <option value="available">Available</option>
+                    <option value="booked">Booked</option>
+                    <option value="occupied">Occupied</option>
+                    <option value="maintenance">Maintenance</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row mt-3">
+                <div class="col-md-12 d-flex justify-content-end">
+                  <button class="btn add-room-btn" onclick="showAddRoomForm()">
+                    <i class="fas fa-plus me-2"></i>Book New Room
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Rooms Table -->
+            <div class="rooms-table" id="roomsTable">
+                <table class="table">
+                    <thead>
+                        <tr>
+                          <th class="text-center">Guest Name</th>
+                          <th class="text-center">Mobile No</th>
+                          <th class="text-center">Room Type</th>
+                          <th class="text-center">Bed Type</th>
+                          <th class="text-center">Check-in</th>
+                          <th class="text-center">Check-out</th>
+                          <th class="text-center">Status</th>
+                          <th style="padding-left: 50px;">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody id="roomsTableBody">
+                        <!-- Table rows will be dynamically loaded here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Empty State -->
+            <div class="empty-state" id="emptyState" style="display: none;">
+                <i class="fas fa-bed"></i>
+                <h4>No Rooms Found</h4>
+                <p>Start by adding your first room to the system.</p>
+            </div>
+        </div>
+    </div>
+    </div>  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="Assests/js/BookingAdmin.js"></script>
+
+
+</body>
+</html> 

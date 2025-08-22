@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel - Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="Assests/css/HotelAdmin.css" rel="stylesheet">
+</head>
+<body>
+      <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h5><i class="fas fa-hotel"></i> Hotel Management</h5>
+            </div>
+            <nav class="sidebar-nav">
+            <div class="nav-item">
+                <a href="HotelAdmin.html" class="nav-link">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                </div>
+
+                <div class="nav-item">
+                    <a href="BookingAdmin.html" class="nav-link">
+                        <i class="fas fa-calendar-check"></i>
+                    <span>Bookings</span>
+                    </a>
+                </div>
+                 <div class="nav-item">
+               
+            </div>
+
+
+           <div class="nav-item">
+                <a href="#" class="nav-link toggle-submenu">
+                    <i class="fas fa-bed"></i>
+                  <span>Master</span>
+                </a>
+
+            <div class="submenu">
+                <a href="Amenities.html" class="nav-link"><i class="fa-solid fa-spa"></i><span>Amenities</span></a>
+                 <a href="Room.html" class="nav-link">
+                   <i class="fa-solid fa-hotel"></i>
+                  <span>Room</span>
+                </a>
+                 <a href="MasterRooms.html" class="nav-link">
+                    <i class="fas fa-bed"></i>
+                  <span>Master Room</span>
+                </a>
+                
+            </div>
+            </div>
+                    
+                <!--  <div class="nav-item">
+                <a href="Guests.html" class="nav-link">
+                    <i class="fas fa-users"></i>
+                   <span>Guests</span>
+                </a>
+            </div>-->
+        
+                <div class="nav-item">
+                    <a href="Staff.html" class="nav-link">
+                        <i class="fas fa-user-tie"></i>
+                    <span>Staff</span>
+                    </a>
+                </div>
+                 <div class="nav-item">
+                <a href="Rating.html" class="nav-link">
+                   <i class="fa-solid fa-star"></i>
+                   <span>Rating and Review</span>
+                </a>
+            </div>
+                <div class="nav-item">
+                    <a href="Profile.html" class="nav-link">
+                        <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Top Navbar -->
+        <nav class="top-navbar">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <button class="btn btn-link" id="sidebarToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h4 class="mb-0 ms-2">Admin Dashboard</h4>
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="dropdown me-3">
+                        <button class="btn btn-outline-primary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" style="border: none;">
+                            <i class="fas fa-bell"><sup>3</sup></i>
+                           
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">New booking received</a></li>
+                            <li><a class="dropdown-item" href="#">Room maintenance required</a></li>
+                            <li><a class="dropdown-item" href="#">Payment pending</a></li>
+                        </ul>
+                    </div>
+                   
+                      <div class="user-profile position-relative" id="userProfile">
+                    <span>Welcome, Admin</span>
+                    <div class="user-avatar" id="avatarBtn">A</div>
+
+                    <div class="user-menu dropdown-menu" id="userMenu">
+                        <a class="dropdown-item" href="AdminSignin.html">Logout</a>
+                    </div>
+                </div>
+
+                    </div>
+                </div>
+            
+        </nav>
+
+        <!-- Content Area -->       
+        <div class="content-area">
+                 <!-- Dashboard Section -->
+            <div class="content-section active">
+             
+                <div class="row mb-4">
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="stats-card bookings">
+                             <i class="fas fa-calendar-check"></i>
+                            <h3>156</h3>
+                            <p>Total Bookings</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="stats-card rooms">
+                             <i class="fas fa-bed"></i>
+                            <h3>48</h3>
+                            <p>Available Rooms</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="stats-card guests">
+                             <i class="fas fa-users"></i>
+                            <h3>324</h3>
+                            <p>Total Guests</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="stats-card revenue">
+                             <i class="fas fa-dollar-sign"></i>
+                            <h3>$45,280</h3>
+                            <p>Monthly Revenue</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="custom-table">
+                            <h5 class="p-3 mb-0" style="background: var(--primary-color); color: white;">Recent Bookings</h5>
+                            <div class="table-responsive">
+                            <table class="table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Guest Id</th>
+                                        <th>Guest Name</th>
+                                        <th>Room</th>
+                                        <th>Check-in</th>
+                                        <th>Check-out</th>
+                                        <th>Status</th>
+                                        <th style="padding-left: 60px;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>G101</td>
+                                        <td>Harish</td>
+                                        <td>Deluxe Suite 101</td>
+                                        <td>2024-01-13</td>
+                                        <td>2025-08-15</td>
+                                        <td><span class="room-status status-confirmed">pending</span></td>
+                                        <td><span class="btn btn-edit btn-sm"><i class="fas fa-edit me-1"></i>View</span>
+                                        <span class="btn btn-delete btn-sm"><i class="fas fa-trash me-1"></i>Delete</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>G101</td>
+                                        <td>Sarah Johnson</td>
+                                        <td>Standard Room 205</td>
+                                        <td>2024-01-16</td>
+                                        <td>2025-08-20</td>
+                                        <td><span class="room-status status-occupied">Checked-in</span></td>
+                                          <td><span class="btn btn-edit btn-sm"><i class="fas fa-edit me-1"></i>View</span>
+                                        <span class="btn btn-delete btn-sm"><i class="fas fa-trash me-1"></i>Delete</span></td>
+                                    </tr>
+                                    </tr>
+                                    <tr>
+                                        <td>G101</td>
+                                        <td>Mike Wilson</td>
+                                        <td>Premium Suite 301</td>
+                                        <td>2025-08-07</td>
+                                         <td>2025-08-10</td>
+                                        <td><span class="room-status status-maintenance">Pending</span></td>
+                                          <td><span class="btn btn-edit btn-sm"><i class="fas fa-edit me-1"></i>view</span>
+                                        <span class="btn btn-delete btn-sm"><i class="fas fa-trash me-1"></i>Delete</span></td>
+                                    </tr>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+      
+
+
+         
+        </div>
+    </div>
+
+ 
+ 
+
+
+
+
+
+
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="Assests/js/HotelAdmin.js"></script>
+    <script>
+document.getElementById("avatarBtn").addEventListener("click", function () {
+    const menu = document.getElementById("userMenu");
+    menu.style.display = menu.style.display === "block" ? "none" : "block";
+});
+
+// Close dropdown if clicked outside
+document.addEventListener("click", function (event) {
+    const profile = document.getElementById("userProfile");
+    const menu = document.getElementById("userMenu");
+    if (!profile.contains(event.target)) {
+        menu.style.display = "none";
+    }
+});
+</script>
+
+    </body>
+</html>

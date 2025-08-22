@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel - Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="Assests/css/HotelAdmin.css" rel="stylesheet">
+   
+</head>
+<body>
+  <style>
+      .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #6c757d;
+        }
+ 
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.5;
+        }
+           /* Room Form Section */
+        .amenities-form-section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #e2e8f0;
+        }
+ 
+        .form-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+ 
+        .form-header h4 {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin: 0;
+        }
+ 
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
+        }
+       
+  </style>
+     <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h5><i class="fas fa-hotel"></i> Hotel Management</h5>
+            </div>
+            <nav class="sidebar-nav">
+            <div class="nav-item">
+                <a href="HotelAdmin.html" class="nav-link">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                </div>
+ 
+                <div class="nav-item">
+                    <a href="BookingAdmin.html" class="nav-link">
+                        <i class="fas fa-calendar-check"></i>
+                    <span>Bookings</span>
+                    </a>
+                </div>
+                 <div class="nav-item">
+               
+            </div>
+ 
+ 
+           <div class="nav-item">
+                <a href="#" class="nav-link toggle-submenu">
+                    <i class="fas fa-bed"></i>
+                  <span>Master</span>
+                </a>
+ 
+            <div class="submenu">
+                <a href="Amenities.html" class="nav-link"><i class="fa-solid fa-spa"></i><span>Amenities</span></a>
+                 <a href="Room.html" class="nav-link">
+                   <i class="fa-solid fa-hotel"></i>
+                  <span>Room</span>
+                </a>
+                 <a href="MasterRooms.html" class="nav-link">
+                    <i class="fas fa-bed"></i>
+                  <span>Master Room</span>
+                </a>
+               
+            </div>
+            </div>
+                   
+                <!--  <div class="nav-item">
+                <a href="Guests.html" class="nav-link">
+                    <i class="fas fa-users"></i>
+                   <span>Guests</span>
+                </a>
+            </div>-->
+       
+                <div class="nav-item">
+                    <a href="Staff.html" class="nav-link">
+                        <i class="fas fa-user-tie"></i>
+                    <span>Staff</span>
+                    </a>
+                </div>
+                 <div class="nav-item">
+                <a href="Rating.html" class="nav-link">
+                   <i class="fa-solid fa-star"></i>
+                   <span>Rating and Review</span>
+                </a>
+            </div>
+                <div class="nav-item">
+                    <a href="Profile.html" class="nav-link">
+                        <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+   <!-- Main Content -->
+    <div class="main-content">
+  <!-- Top Navbar -->
+        <nav class="top-navbar">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <button class="btn btn-link" id="sidebarToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h4 class="mb-0 ms-2">Admin Dashboard</h4>
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="dropdown me-3">
+                        <button class="btn btn-outline-primary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" style="border: none;">
+                            <i class="fas fa-bell"><sup>3</sup></i>
+                           
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">New booking received</a></li>
+                            <li><a class="dropdown-item" href="#">Room maintenance required</a></li>
+                            <li><a class="dropdown-item" href="#">Payment pending</a></li>
+                        </ul>
+                    </div>
+                   
+                      <div class="user-profile" id="userProfile">
+                    <div class="user-avatar" id="avatarBtn">A</div>
+                </div>
+ 
+                    </div>
+                </div>
+           
+        </nav>
+     <!-- Content Area -->      
+    <div class="content-area">
+        <div class="row mb-4" id="Amenities">
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <div class="stats-card">
+                          <i class="fas fa-swimming-pool"></i>
+                            <h3>12</h3>
+                            <p>Total Amenities</p>
+                           
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <div class="stats-card">
+                           <i class="fas fa-check-circle"></i>
+                            <h3>10</h3>
+                            <p>Active</p>
+                           
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <div class="stats-card">
+                           <i class="fas fa-tools"></i>
+                            <h3>2</h3>
+                            <p>Under Maintenance</p>
+                           
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <div class="stats-card">
+                            <i class="fas fa-chart-pie"></i>
+                            <h3>85%</h3>
+                            <p>Usage Rate</p>
+                        </div>
+                    </div>
+                </div>
+    <!-- Amenities Section -->
+      <section class="content-section">
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <div>
+          </div>
+            <div class="col-md-3 d-flex justify-content-end">
+                              <button class="btn add-room-btn" onclick="showAmenityForm()">
+                          <i class="fas fa-plus me-2"></i>Add New Amenity
+                      </button>
+                  </div>
+ 
+      </div>
+ 
+      <!-- Add/Edit Amenities Form Section -->
+    <div class="amenities-form-section" id="AmenitiesFormSection" style="display: none;">
+      <form id="amenitiesForm">
+        <div class="row g-3">
+          <div class="col-md-4">
+            <label class="form-label">Amenities Image <span class="text-danger">*</span></label>
+            <input type="file" class="form-control" id="image" accept="image/*" onchange="previewAmenityImage()" required>
+            <div class="mt-2">
+              <img id="imagePreview" src="" alt="Preview" style="width:50px;height:50px;object-fit:cover;border-radius:8px;display:none;">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Amenities Name <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="name" placeholder="e.g., Swimming Pool" required>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Description <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="Description" placeholder="Enter description" required>
+          </div>
+        </div>
+        <div class="row g-3 mt-2">
+          <div class="col-md-4">
+            <label class="form-label">Opening Time</label>
+            <input type="time" class="form-control" id="opening">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Closing Time </label>
+            <input type="time" class="form-control" id="closing">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Status <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="status" placeholder="Enter Status of Amenities" required>      
+          </div>
+        </div>
+        <div class="form-actions mt-4">
+          <button type="button" class="btn btn-secondary" onclick="hideAmenityForm()">Cancel</button>
+          <button type="button" class="btn btn-primary" onclick="saveAmenity()">
+            <i class="fas fa-save me-2"></i>Add Amenity
+          </button>
+        </div>
+      </form>
+    </div>
+ 
+      <!-- Amenities Grid -->
+    <div class="row">
+      <div class="row mt-4" id="amenitiesCardsContainer">
+        <!-- Amenity cards will be injected here -->
+      </div>
+ 
+        <!-- Empty state -->
+      <div class="empty-state" id="emptyState" style="display: none;">
+        <i class="fa-solid fa-location-dot"></i>
+        <h4>No Amenities Found</h4>
+        <p>Start by adding your first Amenity to the system.</p>
+      </div>
+    </div>
+    </section>
+      </div>
+ 
+    </div>
+   
+ 
+ 
+ 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="Assests/js/Amenities.js"></script>
+ 
+ 
+ 
+ 
+    </body>
+</html> 
